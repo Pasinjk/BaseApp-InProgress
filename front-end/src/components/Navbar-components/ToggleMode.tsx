@@ -6,8 +6,8 @@ import { useTheme } from "next-themes";
 
 import { Button } from "../ui/button";
 
-const ToggleMode = () => {
-  const { theme , setTheme } = useTheme();
+export default function ToggleMode() {
+  const { theme, setTheme } = useTheme();
   const toggle = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
@@ -18,6 +18,4 @@ const ToggleMode = () => {
       <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
     </Button>
   );
-};
-
-export default ToggleMode;
+}

@@ -1,16 +1,16 @@
 "use client";
 import * as React from "react";
 import ToggleMode from "./Navbar-components/ToggleMode";
+import LocalSwitcher from "./Navbar-components/local-switcher";
 
-const Navbar = () => {
+export default function Navbar() {
   return (
     <div className="h-14 shadow-none border-b-2 backdrop-blur-sm backdrop-opacity-0 justify-between flex items-center">
       <div></div>
-      <div>
+      <div className="flex items-center">
+        <LocalSwitcher/>
         <ToggleMode />
       </div>
     </div>
   );
-};
-
-export default Navbar;
+}
