@@ -1,6 +1,13 @@
 {
-  "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+  "LoginPage": {
+    "title": "Login",
+    "UsernamePlaceHolder": "Username",
+    "PasswordPlaceHolder": "Password",
+    "MessageUserInput": "Please Input Username",
+    "MessagePassInput": "Please Input Password",
+    "Button":{
+      "submit" :"login",
+      "contact" :"Contact Administrator"
+      }
   }
 }

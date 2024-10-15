@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { Toaster } from "@/components/ui/toaster";
 
 const promt = Prompt({
   weight: "400",
@@ -26,6 +27,7 @@ export default async function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system">
             <Navbar />
             {children}
+            <Toaster />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

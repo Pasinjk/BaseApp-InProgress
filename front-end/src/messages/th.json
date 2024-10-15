@@ -1,6 +1,13 @@
 {
-  "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+  "LoginPage": {
+    "title": "เข้าสู่ระบบ",
+    "UsernamePlaceHolder": "ชื่อผู้ใช้งาน",
+    "PasswordPlaceHolder": "รหัสผ่าน",
+    "MessageUserInput": "กรุณาใส่ชื่อผู้ใช้งาน",
+    "MessagePassInput": "กรุณาใส่รหัสผ่าน",
+    "Button":{
+      "submit" :"เข้าสู่ระบบ",
+      "contact" :"ติดต่อผู้ดูแลระบบ"
+      }
   }
 }
