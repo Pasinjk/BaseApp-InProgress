@@ -5,9 +5,17 @@
     "PasswordPlaceHolder": "รหัสผ่าน",
     "MessageUserInput": "กรุณาใส่ชื่อผู้ใช้งาน",
     "MessagePassInput": "กรุณาใส่รหัสผ่าน",
-    "Button":{
-      "submit" :"เข้าสู่ระบบ",
-      "contact" :"ติดต่อผู้ดูแลระบบ"
-      }
+    "Button": {
+      "submit": "เข้าสู่ระบบ",
+      "contact": "ติดต่อผู้ดูแลระบบ",
+      "Send":"ส่ง"
+    },
+    "Dialog": {
+      "titleDia": "ติดต่อผู้ดูแลระบบ",
+      "Username": "ชื่อผู้ใช้งาน",
+      "Name": "ชื่อ",
+      "Problem": "ปัญหาที่พบ",
+      "ProblemPlaceHolder": "พิมพ์ข้อความลงที่บริเวณนี้"
+    }
   }
 }

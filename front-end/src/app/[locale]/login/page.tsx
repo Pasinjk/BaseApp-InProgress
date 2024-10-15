@@ -16,6 +16,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "@/i18n/routing";
 import { axiosInstace } from "@/utils/axios";
+import ContactAdmin from "@/components/contact-admin";
 
 export default function Login() {
   const t = useTranslations("LoginPage");
@@ -43,7 +44,7 @@ export default function Login() {
       toast({
         variant: "default",
         title: "✅ Login Success !!",
-        description: "Hi!! Welcome",
+        description: "Hi !! Welcome",
       });
       router.push("/");
     } catch (err) {
@@ -59,56 +60,56 @@ export default function Login() {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <Form {...form}>
-        <form className="p-8 rounded-md shadow-lg w-full max-w-sm">
-          <div>
-            <h1 className="text-xl font-bold">{t("title")}</h1>
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl className="mt-4">
-                    <Input
-                      type="username"
-                      placeholder={t("UsernamePlaceHolder")}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="mt-3">
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder={t("PasswordPlaceHolder")}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <hr className="mt-4 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-            <Button
-              onClick={form.handleSubmit(onSubmit)}
-              type="submit"
-              className="mt-4 w-full"
-            >
-              {t("Button.submit")}
-            </Button>
-            <div className="flex items-center justify-center">
-              <Button variant="link" className="text-xs">
-                {t("Button.contact")}
+        <div className="p-8 rounded-md shadow-lg w-full max-w-sm">
+          <form>
+            <div>
+              <h1 className="text-xl font-bold">{t("title")}</h1>
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl className="mt-4">
+                      <Input
+                        type="username"
+                        placeholder={t("UsernamePlaceHolder")}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="mt-3">
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder={t("PasswordPlaceHolder")}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <hr className="mt-4 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+              <Button
+                onClick={form.handleSubmit(onSubmit)}
+                type="submit"
+                className="mt-4 w-full"
+              >
+                {t("Button.submit")}
               </Button>
             </div>
+          </form>
+          <div className="flex items-center justify-center">
+            <ContactAdmin />
           </div>
-        </form>
+        </div>
       </Form>
     </div>
   );
