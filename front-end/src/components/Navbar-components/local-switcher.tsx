@@ -31,12 +31,12 @@ export default function LocalSwitcher() {
           <BsTranslate className="size-6/12"/>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" defaultValue={localActive}>
+      <DropdownMenuContent className=""align="center" defaultValue={localActive}>
         <DropdownMenuItem onSelect={() => onSelectChange("en")}>
           English
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => onSelectChange("th")}>
-          Thai
+          ไทย
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

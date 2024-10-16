@@ -1,19 +1,24 @@
 {
   "LoginPage": {
     "title": "เข้าสู่ระบบ",
+    "TextUser": "ชื่อผู้ใช้งาน :",
+    "TextPass": "รหัสผ่าน :",
     "UsernamePlaceHolder": "ชื่อผู้ใช้งาน",
     "PasswordPlaceHolder": "รหัสผ่าน",
     "MessageUserInput": "กรุณาใส่ชื่อผู้ใช้งาน",
     "MessagePassInput": "กรุณาใส่รหัสผ่าน",
+    "MessageNameInput": "กรุณาใส่ชื่อ",
+    "MessageProblemInput": "กรุณาใส่ปัญหาที่พบ",
     "Button": {
       "submit": "เข้าสู่ระบบ",
       "contact": "ติดต่อผู้ดูแลระบบ",
-      "Send":"ส่ง"
+      "Send": "ส่ง"
     },
     "Dialog": {
       "titleDia": "ติดต่อผู้ดูแลระบบ",
       "Username": "ชื่อผู้ใช้งาน",
-      "Name": "ชื่อ",
+      "Name": "ชื่อ :",
+      "NamePlacHolder": "ชื่อ",
       "Problem": "ปัญหาที่พบ",
       "ProblemPlaceHolder": "พิมพ์ข้อความลงที่บริเวณนี้"
     }

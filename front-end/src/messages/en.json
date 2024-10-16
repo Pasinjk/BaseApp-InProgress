@@ -1,21 +1,26 @@
 {
   "LoginPage": {
     "title": "Login",
+    "TextUser": "Username :",
+    "TextPass": "Password :",
     "UsernamePlaceHolder": "Username",
     "PasswordPlaceHolder": "Password",
-    "MessageUserInput": "Please Input Username",
-    "MessagePassInput": "Please Input Password",
+    "MessageUserInput": "Please input your username",
+    "MessagePassInput": "Please input your password",
+    "MessageNameInput": "Please input your name",
+    "MessageProblemInput": "Please input your problem",
     "Button": {
       "submit": "login",
       "contact": "Contact Administrator",
-      "Send":"Submit"
+      "Send": "Submit"
     },
     "Dialog": {
       "titleDia": "Contact Administrator",
-      "Username":"Username",
-      "Name":"Name",
-      "Problem":"Your Problem",
-      "ProblemPlaceHolder":"Type your message here"
+      "Username": "Username",
+      "Name": "Name :",
+      "NamePlacHolder": "Name",
+      "Problem": "Your Problem",
+      "ProblemPlaceHolder": "Type your message here"
     }
   }
 }
