@@ -9,7 +9,7 @@ import { Toaster } from "@/components/ui/toaster";
 const promt = Prompt({
   weight: "400",
   subsets: ["latin"],
-  display: "auto",
+  display: "swap",
 });
 
 export default async function RootLayout({
