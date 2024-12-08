@@ -1,45 +1,33 @@
 from pydantic import BaseModel
 from typing import Optional
+from datetime import datetime
 
 
-class Department(BaseModel):
-    department_name: str
-    description: Optional[str] = None
+class UserCreated(BaseModel):
+    email: str
+    username: str
+    password: str
+    first_name: str
+    last_name: str
+    phone: Optional[str] = None
+    department: Optional[str] = None
+    role: Optional[str] = None
 
 
-class DepartmentCreated(Department):
-    pass
-
-
-class DepartmentResponse(Department):
+class UserResponse(BaseModel):
     id: int
-
-    class Config:
-        from_attributes = True
-
-
-class UpdateDepart(BaseModel):
-    id: int
-    department_name: str
-    description: Optional[str] = None
-
-
-class UpdateDepartResponse(UpdateDepart):
-    class Config:
-        from_attributes = True
+    email: str
+    username: str
+    first_name: str
+    last_name: str
+    phone: Optional[str] = None
+    department: Optional[str] = None
+    role: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    is_admin: Optional[bool] = None
 
 
-class Role(BaseModel):
-    role_name: str
-    description: Optional[str] = None
-
-
-class RoleCreated(Role):
-    pass
-
-
-class RolesResponse(Role):
-    id: int
-
-    class Config:
-        from_attributes = True
+class UserLogin(BaseModel):
+    username: str
+    password: str
