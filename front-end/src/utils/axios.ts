@@ -1,7 +1,11 @@
 import { environment } from "./environments";
 import axios from "axios";
 
-export const axiosInstace = axios.create({
+export const axiosInstance = axios.create({
   baseURL: environment.API_ENDPOINT,
-  headers: { "X_API_KEY" : environment.API_KEY },
+});
+
+axiosInstance.interceptors.request.use((config) => {
+  config.headers["X-API-KEY"] = environment.API_KEY;
+  return config;
 });

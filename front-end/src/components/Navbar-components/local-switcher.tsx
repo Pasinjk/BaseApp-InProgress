@@ -28,10 +28,14 @@ export default function LocalSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          <BsTranslate className="size-6/12"/>
+          <BsTranslate className="size-6/12" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className=""align="center" defaultValue={localActive}>
+      <DropdownMenuContent
+        className=""
+        align="center"
+        defaultValue={localActive}
+      >
         <DropdownMenuItem onSelect={() => onSelectChange("en")}>
           English
         </DropdownMenuItem>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,14 +15,17 @@ import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "@/i18n/routing";
-import { axiosInstace } from "@/utils/axios";
+import { axiosInstance } from "@/utils/axios";
 import ContactAdmin from "@/components/Dialog/contact-admin";
 import { FaUserLarge } from "react-icons/fa6";
 import { FaLock } from "react-icons/fa6";
+import Loading from "@/components/loading";
 
 export default function Login() {
   const t = useTranslations("LoginPage");
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const FormSchema = z.object({
     username: z.string().min(1, {
       message: t("MessageUserInput"),
@@ -41,8 +44,11 @@ export default function Login() {
   });
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    setIsLoading(true);
     try {
-      await axiosInstace.post("/", data);
+      await axiosInstance.post("/api/users/login", data, {
+        withCredentials: true,
+      });
       toast({
         variant: "default",
         title: "✅ Login Success !!",
@@ -50,17 +56,19 @@ export default function Login() {
       });
       router.push("/");
     } catch (err) {
-      console.log(err);
       toast({
         variant: "destructive",
-        title: "❌ Login Fail",
+        title: "Login Fail",
         description: "Login fail please try again",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen">
+      {isLoading && <Loading />}{" "}
       <Form {...form}>
         <div className="p-8 rounded-md shadow-lg w-full max-w-fit">
           <form>
