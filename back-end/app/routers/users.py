@@ -1,13 +1,30 @@
+from datetime import datetime, timedelta
+from typing import Optional
 from sqlalchemy import select
 from app.auth import validate_api_key
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.schema import UserCreated, UserResponse, UserLogin
 from app.database import get_db
 from app.model import UsersDB
 from passlib.hash import pbkdf2_sha512
+from jose import JWTError, jwt
 
 router = APIRouter(dependencies=[Depends(validate_api_key)])
+
+SECRET_KEY = "your_secret_key_here"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+
+def create_access_token(data: dict, expires_delta: timedelta | None = None):
+    to_encode = data.copy()
+    expire = datetime.now() + (
+        expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
 
 
 @router.post("/create_user", tags=["CRUD_User"], response_model=UserResponse)
@@ -103,8 +120,24 @@ async def delete_user(email_user: str, db: AsyncSession = Depends(get_db)):
     return {"message": "success"}
 
 
-@router.post("/login", tags=["Authen"], response_model=UserResponse)
-async def login(login_user: UserLogin, db: AsyncSession = Depends(get_db)):
+def create_access_token(data: dict, expires_delta: timedelta | None = None):
+    to_encode = data.copy()
+    expire = datetime.now() + (
+        expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+
+@router.post(
+    "/login",
+    tags=["Authen"],
+    response_model=UserResponse,
+)
+async def login(
+    login_user: UserLogin, response: Response, db: AsyncSession = Depends(get_db)
+):
     existing_user_query = await db.execute(
         select(UsersDB).where((UsersDB.username == login_user.username))
     )
@@ -116,6 +149,16 @@ async def login(login_user: UserLogin, db: AsyncSession = Depends(get_db)):
             detail="Invalid password",
         )
 
+    token = create_access_token(data={"sub": existing_user.username})
+
+    response.set_cookie(
+        key="access_token",
+        value=token,
+        httponly=True,
+        max_age=1800,
+        samesite="strict",
+        secure=True,
+    )
     return UserResponse(
         id=existing_user.id,
         email=existing_user.email,
@@ -127,3 +170,47 @@ async def login(login_user: UserLogin, db: AsyncSession = Depends(get_db)):
         role=existing_user.role,
         is_admin=existing_user.is_admin,
     )
+
+
+@router.get("/secure-data", tags=["Authen"], response_model=UserResponse)
+async def secure_data(
+    token: Optional[str] = Cookie(None, alias="access_token"),
+    db: AsyncSession = Depends(get_db),
+):
+    if not token:
+        raise HTTPException(status_code=401, detail="Token missing")
+
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise HTTPException(status_code=401, detail="Invalid token")
+
+        existing_user_query = await db.execute(
+            select(UsersDB).where(UsersDB.username == username)
+        )
+
+        db_user = existing_user_query.scalar_one_or_none()
+
+        if not db_user:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        return UserResponse(
+            id=db_user.id,
+            email=db_user.email,
+            username=db_user.username,
+            first_name=db_user.first_name,
+            last_name=db_user.last_name,
+            phone=db_user.phone,
+            department=db_user.department,
+            role=db_user.role,
+            is_admin=db_user.is_admin,
+        )
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+
+@router.post("/logout", tags=["Authen"])
+async def logout(response: Response):
+    response.delete_cookie("access_token")
+    return {"message": "Logged out successfully"}
